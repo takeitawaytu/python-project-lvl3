@@ -15,3 +15,7 @@ dist
 
 #testfiles
 testfiles
+
+#coverage
+.coverage
+coverage.xml
