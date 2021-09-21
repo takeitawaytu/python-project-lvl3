@@ -11,11 +11,11 @@ package-install:
 	python -m pip install --user dist/hexlet_code-0.1.0-py3-none-any.whl --force-reinstall
 
 lint:
-	poetry run flake8 gendiff
+	poetry run flake8 page-loader
 
 install-requirements:
 	python -m pip install --user --upgrade pip
 	python -m pip install poetry
 
 test:
-	poetry run pytest --cov=gendiff --cov-report xml tests/
+	poetry run pytest .
