@@ -11,7 +11,6 @@ before_install:
   - pip install poetry
 
 script:
-  - make lint
   - make test
 
 before_script:
