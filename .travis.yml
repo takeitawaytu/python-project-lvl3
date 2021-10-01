@@ -9,9 +9,11 @@ install: make
 
 before_install:
   - pip install poetry
+  - poetry install
+  - pip install pytest
+  - pip install pytest-cov
 
 script:
-  - make lint
   - make test
 
 before_script:

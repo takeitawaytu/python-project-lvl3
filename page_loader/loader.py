@@ -1,22 +1,18 @@
 import os
-import requests
-from urllib.parse import urlparse
-import re
-
-DOMAIN_PATTERN = r'^([^http|\/\/][\w]*[\.|\/].+)'
-
-
-def download(url, output_dir, ext='.html'):
-    filename = get_output_filename(url)
-    page_content = requests.get(url)
-    dir_to_save = os.path.join(output_dir, filename + ext)
-    with open(dir_to_save, 'w', encoding='UTF8') as file:
-        file.write(page_content.text)
-    return dir_to_save
+from page_loader.page_content import parse_html
+from page_loader.generators import generate_name, create_dir
+from page_loader.save_content import get_content, save_images,\
+    save_html_page
 
 
-def get_output_filename(url):
-    parse_url = urlparse(url)
-    unformatted_filename = str(parse_url[1] + parse_url[2]).strip('/')
-    filename = re.sub(r'[\W_]', '-', unformatted_filename)
-    return filename
+def download(url, output_dir=os.getcwd()):
+    page_content = get_content(url)
+    dir_to_save = create_dir(url, output_dir)
+    filename = generate_name(url, ext='.html')
+    path_to_save = os.path.join(output_dir, filename)
+    html_to_save, images_to_save = parse_html(url,
+                                              page_content.text,
+                                              dir_to_save)
+    save_images(images_to_save)
+    save_html_page(html_to_save, path_to_save)
+    return path_to_save
