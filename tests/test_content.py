@@ -1,29 +1,23 @@
-import tempfile
+from page_loader.page_content import parse_html
 
-from page_loader.loader import download
-
-HTML1 = 'tests/fixtures/test_page.html'
-URL1 = 'https://ru.hexlet.io/courses'
+HTML1 = './tests/fixtures/test_page.html'
 HTML2 = 'tests/fixtures/google-com.html'
-URL2 = 'https://google.com/'
 
 
-def get_actual_file_content(url):
-    with tempfile.TemporaryDirectory() as temp_dir:
-        actual_file_path = download(url, temp_dir)
-        with open(actual_file_path, 'r', encoding='UTF8') as actual_file:
-            actual_file_content = actual_file.read()
-            return actual_file_content
-
-
-def get_exp_file_content(filepath):
-    with open(filepath, 'r', encoding='UTF8') as exp_file:
-        exp_file_content = exp_file.read()
-        return exp_file_content
-
-
-def test_html_file_content():
-    assert True
+def test_parse_html():
+    with open(HTML1, 'r', encoding='UTF8') as _html:
+        test_html = _html.read()
+        print(test_html)
+    expected_images = {
+        'https://test.download.com/assets/professions/nodejs.png':
+            r'test-download-com-test-html_files\assets-professions-nodejs.png'
+    }
+    _, images = parse_html(
+        'https://test.download.com/test.html',
+        test_html,
+        r'C:\JOB\PycharmProjects\hexlet_project_3\python-project-lvl3\test-download-com-test-html_files',
+    )
+    assert images == expected_images
 
 
 

@@ -1,16 +1,17 @@
 from urllib.parse import urlparse, urlunparse
-from bs4 import BeautifulSoup
 import re
 import os
 
-CONTENT_TYPES = ('page', 'image')
 PAGE_PATTERN = r'[\W_]'
 
 
 def generate_name(url, ext='.html'):
     parsed_url = urlparse(url)
+    print(url)
     unformatted_filename = str(parsed_url[1] + parsed_url[2]).strip('/')
+    print(unformatted_filename)
     filename = re.sub(PAGE_PATTERN, '-', unformatted_filename)
+    print(filename)
     return filename + ext
 
 
