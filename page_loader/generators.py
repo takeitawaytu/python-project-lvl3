@@ -25,7 +25,11 @@ def create_dir(url, path):
     path_to_dir = os.path.join(path, dirname)
     try:
         os.makedirs(path_to_dir, exist_ok=True)
-    except OSError as e:
+        logging.debug(f'directory {path_to_dir} was created')
+    except (
+            OSError,
+            PermissionError,
+    ) as e:
         logging.debug(f'An error occurred: {e}', exc_info=True)
         logging.error(f'Can`t create directory {path_to_dir}, because {e}')
         raise SysError() from e
