@@ -38,5 +38,5 @@ def write(data, filepath):
         except OSError as e:
             logging.debug(e, exc_info=True)
             logging.error(f'Can`t save {filepath}. An error occurred: {e}')
-        else:
-            return filepath
+        finally:
+            logging.info(f'\u2713 {filepath}')
