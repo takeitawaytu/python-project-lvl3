@@ -1,6 +1,7 @@
-from urllib.parse import urlparse, urlunparse
 import re
 import os
+import logging
+from urllib.parse import urlparse, urlunparse
 
 PAGE_PATTERN = r'[\W_]'
 LINK_PATTERN = r'[^a-zA-Z0-9\.]'
@@ -21,8 +22,13 @@ def generate_name(url, ext='.html', is_link=False):
 def create_dir(url, path):
     dirname = generate_name(url, ext='_files')
     path_to_dir = os.path.join(path, dirname)
-    os.makedirs(path_to_dir, exist_ok=True)
-    return path_to_dir
+    try:
+        os.makedirs(path_to_dir, exist_ok=True)
+    except OSError as e:
+        logging.debug(f'An error occurred: {e}', exc_info=True)
+        logging.error(f'Can`t create directory {path_to_dir}, because {e}')
+    else:
+        return path_to_dir
 
 
 def generate_url(url, filename):
