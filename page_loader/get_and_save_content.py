@@ -2,9 +2,22 @@ import requests
 import logging
 
 
+class PageLoadError(Exception):
+    pass
+
+
+class WebError(PageLoadError):
+    pass
+
+
+class SysError(PageLoadError):
+    pass
+
+
 def get_content(url):
     try:
         content = requests.get(url)
+        content.raise_for_status()
     except (
         requests.exceptions.ConnectionError,
         requests.exceptions.HTTPError,
@@ -12,6 +25,7 @@ def get_content(url):
     ) as e:
         logging.debug(e, exc_info=True)
         logging.error(f'An error occurred: {e}')
+        raise WebError() from e
     else:
         return content
 

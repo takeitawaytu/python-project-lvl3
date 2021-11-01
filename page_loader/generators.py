@@ -2,6 +2,7 @@ import re
 import os
 import logging
 from urllib.parse import urlparse, urlunparse
+from page_loader.get_and_save_content import SysError
 
 PAGE_PATTERN = r'[\W_]'
 LINK_PATTERN = r'[^a-zA-Z0-9\.]'
@@ -27,6 +28,7 @@ def create_dir(url, path):
     except OSError as e:
         logging.debug(f'An error occurred: {e}', exc_info=True)
         logging.error(f'Can`t create directory {path_to_dir}, because {e}')
+        raise SysError() from e
     else:
         return path_to_dir
 
