@@ -1,5 +1,6 @@
 import requests
 import logging
+import os
 
 
 class PageLoadError(Exception):
@@ -30,7 +31,17 @@ def get_content(url):
         return content
 
 
-def write(data, filepath):
+def write(data, filepath, is_assets=False):
+    dir_path = os.path.dirname(filepath)
+    if not os.path.exists(dir_path) and is_assets:
+        try:
+            os.mkdir(dir_path)
+            logging.debug(f'directory {dir_path} was created')
+        except PermissionError:
+            logging.error(
+                f'not enough rights to create the directory {dir_path}'
+            )
+
     mode, encoding = ('w', 'utf8') if isinstance(data, str) else ('wb', None)
     with open(filepath, mode=mode, encoding=encoding) as f:
         try:

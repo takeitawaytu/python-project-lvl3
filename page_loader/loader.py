@@ -30,7 +30,7 @@ def download(url, output_dir=os.getcwd()):
             ) = list(link.keys())[0], list(link.values())[0]
             assets_full_path = os.path.join(dir_to_save, content_filename)
             assets = get_content(content_url).content
-            write(assets, assets_full_path)
+            write(assets, assets_full_path, is_assets=True)
             logging.info(f'content by {link} was written')
             bar.next()
         logging.info(
