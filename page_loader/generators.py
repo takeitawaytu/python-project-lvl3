@@ -35,8 +35,8 @@ def generate_path(dir_name, filename):
     name, ext = os.path.splitext(filename)
     formatted_filename = generate_name(name, ext)
     if os.name == 'nt':
-        return os.path.relpath(os.path.join(dir_name, formatted_filename))
-    return os.path.join(dir_name, formatted_filename)
+        return os.path.relpath(dir_name) + '/' + formatted_filename
+    return os.path.relpath(os.path.join(dir_name, formatted_filename))
 
 
 def parse_url(url):
