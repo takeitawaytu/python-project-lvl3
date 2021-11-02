@@ -24,7 +24,7 @@ def create_dir(url, path):
     dirname = generate_name(url, ext='_files')
     path_to_dir = os.path.join(path, dirname)
     try:
-        os.makedirs(path_to_dir, exist_ok=True)
+        os.mkdir(path_to_dir)
         logging.debug(f'directory {path_to_dir} was created')
     except (
             OSError,

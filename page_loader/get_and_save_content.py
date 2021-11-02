@@ -37,10 +37,11 @@ def write(data, filepath, is_assets=False):
         try:
             os.mkdir(dir_path)
             logging.debug(f'directory {dir_path} was created')
-        except PermissionError:
+        except PermissionError as e:
             logging.error(
                 f'not enough rights to create the directory {dir_path}'
             )
+            raise SysError() from e
 
     mode, encoding = ('w', 'utf8') if isinstance(data, str) else ('wb', None)
     with open(filepath, mode=mode, encoding=encoding) as f:
