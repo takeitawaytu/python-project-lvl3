@@ -8,14 +8,14 @@ from progress.bar import Bar
 
 def download(url, output_dir=os.getcwd()):
     page_content = get_content(url)
-    dir_to_save = create_dir(url, output_dir)
+    dir_to_save, assets_dir = create_dir(url, output_dir)
     filename = generate_name(url, ext='.html')
     path_to_save = os.path.join(output_dir, filename)
     try:
         (
             html_to_save,
             content_links
-        ) = parse_html(url, page_content.text, dir_to_save)
+        ) = parse_html(url, page_content.text, assets_dir)
     except AttributeError as e:
         logging.debug(e, exc_info=True)
         logging.error(f'Wrong URL. An error occurred: {e}')
