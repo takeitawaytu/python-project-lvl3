@@ -1,6 +1,7 @@
+import os
 from bs4 import BeautifulSoup
 from page_loader.generators import generate_url, \
-    generate_path, parse_url, generate_name
+    generate_path, parse_url, generate_name, modify_content_path
 
 
 tags = {
@@ -28,20 +29,16 @@ def parse_html(url, page, dir_name):
     return soup.prettify(), content_links
 
 
-def modify_content_path(path):
-    if str(path).startswith('/'):
-        return path[1:]
-    return path
-
-
 def get_url_to_save(url, link):
+    url, ext = os.path.splitext(url)
+    ext = '.html' if ext == '' else ext
     if parse_url(url)[1] == parse_url(link)[1]:
         return {
-            generate_name(parse_url(link)[3], ext='', is_link=True):
+            generate_name(parse_url(link)[0], ext=ext, is_link=True):
                 link
         }
     elif parse_url(link)[2] == '':
         return {
-            generate_name(parse_url(link)[3], ext='', is_link=True):
+            generate_name(parse_url(link)[3], ext=ext, is_link=True):
                 generate_url(parse_url(url)[1], parse_url(link)[3])
         }

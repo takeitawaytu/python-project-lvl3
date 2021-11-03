@@ -5,19 +5,35 @@ from urllib.parse import urlparse, urlunparse
 from page_loader.get_and_save_content import SysError
 
 PAGE_PATTERN = r'[\W_]'
-LINK_PATTERN = r'[^a-zA-Z0-9\.]'
+LINK_PATTERN = r'[^a-zA-Z0-9]'
+URL_PATTERN = re.compile(r'^https?://')
 
 
 def generate_name(url, ext='.html', is_link=False):
     parsed_url = urlparse(url)
     if is_link:
-        unformatted_filename = str(parsed_url[1] + parsed_url[2]).strip('/')
-        filename = re.sub(LINK_PATTERN, '-', unformatted_filename)
-        return filename
+        parsed_url = parse_url(url)[0]
+        unformatted_filename, ext = os.path.splitext(parsed_url)
+        filename = re.sub(
+            LINK_PATTERN,
+            '-',
+            modify_content_path(unformatted_filename)
+        )
+        return filename + ext
     unformatted_filename = str(parsed_url[1] + parsed_url[2].split('.')[0])\
         .strip('/')
-    filename = re.sub(PAGE_PATTERN, '-', unformatted_filename)
+    filename = re.sub(
+        PAGE_PATTERN,
+        '-',
+        unformatted_filename
+    )
     return filename + ext
+
+
+def modify_content_path(path):
+    if str(path).startswith('/'):
+        return path[1:]
+    return path
 
 
 def create_dir(url, path):
