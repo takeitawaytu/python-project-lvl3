@@ -34,7 +34,7 @@ def get_url_to_save(url, link):
     ext = '.html' if ext == '' else ext
     if parse_url(url)[1] == parse_url(link)[1]:
         return {
-            generate_name(parse_url(link)[0], ext=ext, is_link=True):
+            generate_name(parse_url(link)[3], ext=ext, is_link=True):
                 link
         }
     elif parse_url(link)[2] == '':
