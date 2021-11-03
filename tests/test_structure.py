@@ -13,15 +13,15 @@ def prepare_data():
         exp_html_filepath = os.path.join(temp_dir,
                                          'www-tutorialspoint-com-html-html-images.html',
                                          )
-        exp_img_path = os.path.join(temp_dir,
+        exp_img_path = os.path.join(
                                     'www-tutorialspoint-com-html-html-images_files',
                                     'html-images-logo.png'
                                     )
-        exp_links_path = os.path.join(temp_dir,
+        exp_links_path = os.path.join(
                                       'www-tutorialspoint-com-html-html-images_files',
                                       'themes-js-script-min-v1.js'
                                       )
-        exp_scripts_path = os.path.join(temp_dir,
+        exp_scripts_path = os.path.join(
                                         'www-tutorialspoint-com-html-html-images_files',
                                         'themes-css-style-min-v1.css'
                                         )

@@ -34,7 +34,7 @@ def create_dir(url, path):
         logging.error(f'Can`t create directory {path_to_dir}, because {e}')
         raise SysError() from e
     else:
-        return path_to_dir
+        return dirname
 
 
 def generate_url(url, filename):
