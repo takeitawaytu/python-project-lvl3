@@ -16,8 +16,8 @@ def test_generate_name():
 
 
 def test_get_url_to_save():
-    expected_content1 = 'photos-me.jpg'
-    expected_content2 = 'blog-about'
+    expected_content1 = 'site-com-photos-me.jpg'
+    expected_content2 = 'site-com-blog-about.html'
     actual_content1 = list(get_url_to_save(URL2, CONTENT2).keys())[0]
     actual_content2 = list(get_url_to_save(URL2, URL2).keys())[0]
     assert actual_content1 == expected_content1

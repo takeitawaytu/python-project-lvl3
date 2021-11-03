@@ -30,11 +30,11 @@ def parse_html(url, page, dir_name):
 
 
 def get_url_to_save(url, link):
-    url, ext = os.path.splitext(url)
-    ext = '.html' if ext == '' else ext
+    _, ext = os.path.splitext(url)
     if parse_url(url)[1] == parse_url(link)[1]:
+        print(ext)
         return {
-            generate_name(parse_url(link)[3], ext=ext, is_link=True):
+            generate_name(parse_url(link)[0], ext=ext, is_link=True):
                 link
         }
     elif parse_url(link)[2] == '':

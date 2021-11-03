@@ -14,11 +14,14 @@ def generate_name(url, ext='.html', is_link=False):
     if is_link:
         parsed_url = parse_url(url)[0]
         unformatted_filename, ext = os.path.splitext(parsed_url)
+        ext = '.html' if ext == '' else ext
         filename = re.sub(
             LINK_PATTERN,
             '-',
             modify_content_path(unformatted_filename)
         )
+        print(unformatted_filename)
+        print(filename)
         return filename + ext
     unformatted_filename = str(parsed_url[1] + parsed_url[2].split('.')[0])\
         .strip('/')
