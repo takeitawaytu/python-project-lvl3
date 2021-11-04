@@ -1,7 +1,7 @@
 import requests
 import logging
 import os
-from requests import Response
+
 
 class PageLoadError(Exception):
     pass
@@ -32,7 +32,7 @@ def get_content(url):
         if content.ok:
             return content
         else:
-            logging.exception(f'http response: {content.status_code}, Requested page: {url}') # noqa: E501
+            logging.exception(f'http response: {content.status_code}, Requested page: {url}')  # noqa: E501
 
 
 def write(data, filepath, is_assets=False):
