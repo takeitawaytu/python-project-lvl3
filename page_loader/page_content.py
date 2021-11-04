@@ -22,6 +22,7 @@ def parse_html(url, page, dir_name):
                     print(link)
                     url_to_save = get_url_to_save(url,
                                                   modify_content_path(link))
+                    print(url_to_save)
                     content_links.append(url_to_save)
                     path = generate_path(dir_name,
                                          list(url_to_save.keys())[0])
@@ -39,7 +40,8 @@ def get_url_to_save(url, link):
                 link
         }
     elif parse_url(link)[2] == '':
+        converted_link = generate_url(parse_url(url)[1], parse_url(link)[3])
         return {
-            generate_name(parse_url(link)[3], ext=ext, is_link=True):
-                generate_url(parse_url(url)[1], parse_url(link)[3])
+            generate_name(parse_url(converted_link)[0], ext=ext, is_link=True):
+                converted_link
         }

@@ -15,15 +15,15 @@ def prepare_data():
                                          )
         exp_img_path = os.path.join(temp_dir,
                                     'www-tutorialspoint-com-html-html-images_files',
-                                    'html-images-logo.png'
+                                    'tutorialspoint-com-html-images-logo.png'
                                     )
         exp_links_path = os.path.join(temp_dir,
                                       'www-tutorialspoint-com-html-html-images_files',
-                                      'themes-js-script-min-v1.js'
+                                      'tutorialspoint-com-themes-js-script-min-v1.js'
                                       )
         exp_scripts_path = os.path.join(temp_dir,
                                         'www-tutorialspoint-com-html-html-images_files',
-                                        'themes-css-style-min-v1.css'
+                                        'tutorialspoint-com-themes-css-style-min-v1.css'
                                         )
         yield (
             actual_filepath,
