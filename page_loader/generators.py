@@ -61,8 +61,6 @@ def generate_url(url, filename):
 
 
 def generate_path(dir_name, filename):
-#    name, ext = os.path.splitext(filename)
-#    formatted_filename = generate_name(name, ext)
     if os.name == 'nt':
         return os.path.relpath(dir_name) + '/' + filename
     return os.path.relpath(os.path.join(dir_name, filename))

@@ -19,14 +19,11 @@ def parse_html(url, page, dir_name):
             if link is not None:
                 if parse_url(url)[1] == parse_url(link)[1] \
                         or parse_url(link)[2] == '':
-                    print(link)
                     url_to_save = get_url_to_save(url,
                                                   modify_content_path(link))
-                    print(url_to_save)
                     content_links.append(url_to_save)
                     path = generate_path(dir_name,
                                          list(url_to_save.keys())[0])
-                    print(path)
                     original_tag = soup.find(name=tag, **{attr: link})
                     original_tag[attr] = path
     return soup.prettify(), content_links
