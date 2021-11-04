@@ -1,7 +1,7 @@
 import tempfile
 import pytest
 from page_loader import download
-from page_loader.get_and_save_content import WebError, SysError
+from page_loader.get_and_save_content import WebError
 
 
 def test_connection_problems():

@@ -25,5 +25,6 @@ class TestParseHtml:
         dirname = generate_name(url, ext='_files')
         output_dir = os.path.join(os.getcwd(), dirname)
         actual_html, _ = parse_html(url, test_html, output_dir)
+        print(_)
         expected_page_content = read_file(exp_res)
         assert actual_html == expected_page_content
