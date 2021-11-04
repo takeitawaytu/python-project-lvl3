@@ -20,8 +20,6 @@ def generate_name(url, ext='.html', is_link=False):
             '-',
             modify_content_path(unformatted_filename)
         )
-        print(unformatted_filename)
-        print(filename)
         return filename + ext
     unformatted_filename = str(parsed_url[1] + parsed_url[2].split('.')[0])\
         .strip('/')
@@ -64,10 +62,10 @@ def generate_url(url, filename):
 
 def generate_path(dir_name, filename):
     name, ext = os.path.splitext(filename)
-    formatted_filename = generate_name(name, ext)
+#    formatted_filename = generate_name(name, ext)
     if os.name == 'nt':
-        return os.path.relpath(dir_name) + '/' + formatted_filename
-    return os.path.relpath(os.path.join(dir_name, formatted_filename))
+        return os.path.relpath(dir_name) + '/' + filename
+    return os.path.relpath(os.path.join(dir_name, filename))
 
 
 def parse_url(url):

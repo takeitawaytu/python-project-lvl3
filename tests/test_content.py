@@ -1,10 +1,14 @@
+import os
+import pytest
 from page_loader.page_content import parse_html
 from page_loader.generators import generate_name
-import os
 
-URL = 'https://ru.hexlet.io/courses'
-HTML = './tests/fixtures/test_page.html'
-MODIFIED_HTML = 'tests/fixtures/modified_test_page.html'
+URL1 = 'https://ru.hexlet.io/courses'
+HTML1 = './tests/fixtures/test_page.html'
+MODIFIED_HTML1 = 'tests/fixtures/modified_test_page.html'
+URL2 = 'https://site.com/blog/about'
+HTML2 = './tests/fixtures/hexlet_test_page.html'
+MODIFIED_HTML2 = 'tests/fixtures/modified_hexlet_test_page.html'
 
 
 def read_file(path):
@@ -12,10 +16,14 @@ def read_file(path):
         return _html.read()
 
 
-def test_parse_html():
-    test_html = read_file(HTML)
-    dirname = generate_name(URL, ext='_files')
-    output_dir = os.path.join(os.getcwd(), dirname)
-    expected_html, _ = parse_html(URL, test_html, output_dir)
-    expected_page_content = read_file(MODIFIED_HTML)
-    assert expected_page_content == expected_html
+class TestParseHtml:
+    @pytest.mark.parametrize('url, html, exp_res',
+                             [(URL1, HTML1, MODIFIED_HTML1),
+                              (URL2, HTML2, MODIFIED_HTML2)])
+    def test_parse_html_w_test_page(self, url, html, exp_res):
+        test_html = read_file(html)
+        dirname = generate_name(url, ext='_files')
+        output_dir = os.path.join(os.getcwd(), dirname)
+        actual_html, _ = parse_html(url, test_html, output_dir)
+        expected_page_content = read_file(exp_res)
+        assert actual_html == expected_page_content
