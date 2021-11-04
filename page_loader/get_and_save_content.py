@@ -1,7 +1,7 @@
 import requests
 import logging
 import os
-
+from requests import Response
 
 class PageLoadError(Exception):
     pass
@@ -17,7 +17,8 @@ class SysError(PageLoadError):
 
 def get_content(url):
     try:
-        content = requests.get(url)
+        logging.debug(f'try to get url {url}')
+        content = requests.get(url, timeout=15)
         content.raise_for_status()
     except (
         requests.exceptions.ConnectionError,
@@ -28,7 +29,10 @@ def get_content(url):
         logging.error(f'An error occurred: {e}')
         raise WebError() from e
     else:
-        return content
+        if content.ok:
+            return content
+        else:
+            logging.exception(f'http response: {content.status_code}, Requested page: {url}') # noqa: E501
 
 
 def write(data, filepath, is_assets=False):
