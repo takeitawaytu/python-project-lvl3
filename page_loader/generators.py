@@ -68,9 +68,9 @@ def generate_path(dir_name, filename):
 
 def parse_url(url):
     parsed_url = urlparse(url)
-    domain_name = os.path.join('https://', parsed_url.netloc.strip('/'))
+    domain_name = os.path.join('http://', parsed_url.netloc.strip('/'))
     if parsed_url.netloc == '':
-        domain_name = os.path.join('https://', url)
+        domain_name = os.path.join('http://', url)
         return url, domain_name, parsed_url.netloc, parsed_url.path
     elif parsed_url.netloc.startswith('www'):
         path = urlunparse(parsed_url._replace(
