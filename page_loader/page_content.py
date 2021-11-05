@@ -2,7 +2,7 @@ import os
 from bs4 import BeautifulSoup
 from page_loader.generators import generate_url, \
     generate_path, parse_url, generate_name, modify_content_path
-
+from urllib.parse import urlparse, urlunparse
 
 tags = {
     "img": "src",
@@ -38,6 +38,10 @@ def get_url_to_save(url, link):
         }
     elif parse_url(link)[2] == '':
         converted_link = generate_url(parse_url(url)[1], parse_url(link)[3])
+        parsed_url = urlparse(url)
+        parsed_link = urlparse(converted_link)
+        if parsed_url.scheme == 'http':
+            converted_link = urlunparse(parsed_link._replace(scheme='http'))
         return {
             generate_name(parse_url(converted_link)[0], ext=ext, is_link=True):
                 converted_link
