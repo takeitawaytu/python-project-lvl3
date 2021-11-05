@@ -15,16 +15,21 @@ class SysError(PageLoadError):
     pass
 
 
+TIMEOUT = 60
+
+
 def get_content(url):
     try:
         logging.debug(f'try to get url {url}')
-        content = requests.get(url, timeout=15)
+        content = requests.get(
+            url,
+            verify=True,
+            timeout=TIMEOUT
+        )
         content.raise_for_status()
-    except (
-        requests.exceptions.ConnectionError,
-        requests.exceptions.HTTPError,
-        requests.exceptions.RequestException
-    ) as e:
+    except requests.exceptions.ReadTimeout:
+        logging.warning(f'ReadTimeout, timeout = {TIMEOUT}')
+    except requests.exceptions.RequestException as e:
         logging.debug(e, exc_info=True)
         logging.error(f'An error occurred: {e}')
         raise WebError() from e
@@ -32,7 +37,10 @@ def get_content(url):
         if content.ok:
             return content
         else:
-            logging.exception(f'http response: {content.status_code}, Requested page: {url}')  # noqa: E501
+            logging.exception(
+                f'http response: {content.status_code}, Requested page: {url}'
+            )
+            raise WebError()
 
 
 def write(data, filepath, is_assets=False):

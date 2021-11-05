@@ -9,7 +9,7 @@ from page_loader.get_and_save_content import PageLoadError, \
 
 SUCCESSFUL_EXIT_CODE = 0
 COMMON_ERROR_EXIT_CODE = 1
-WEB_ERROR_EXIT_CODE = 0
+WEB_ERROR_EXIT_CODE = 2
 WRITE_ERROR_EXIT_CODE = 3
 
 

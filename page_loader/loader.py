@@ -1,5 +1,7 @@
 import os
 import logging
+
+from page_loader.get_and_save_content import WebError
 from page_loader.page_content import parse_html
 from page_loader.generators import generate_name, create_dir
 from page_loader.get_and_save_content import get_content, write
@@ -29,9 +31,16 @@ def download(url, output_dir=os.getcwd()):
                 content_url
             ) = list(link.keys())[0], list(link.values())[0]
             assets_full_path = os.path.join(dir_to_save, content_filename)
-            assets = get_content(content_url).content
-            write(assets, assets_full_path, is_assets=True)
-            logging.info(f'content by {link} was written')
+            try:
+                assets = get_content(content_url).content
+            except WebError:
+                logging.warning(
+                    f'Resourse download failed {list(link.values())[0]}'
+                )
+                continue
+            else:
+                write(assets, assets_full_path, is_assets=True)
+                logging.info(f'content by {link} was written')
             bar.next()
         logging.info(
             f'\n Page was successfully downloaded into {path_to_save}'
