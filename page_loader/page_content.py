@@ -41,7 +41,9 @@ def get_url_to_save(url, link):
         parsed_url = urlparse(url)
         parsed_link = urlparse(converted_link)
         if parsed_url.scheme != parsed_link.netloc:
-            converted_link = urlunparse(parsed_link._replace(scheme='http'))
+            converted_link = urlunparse(
+                parsed_link._replace(scheme=parsed_url.scheme)
+            )
         return {
             generate_name(parse_url(converted_link)[0], ext=ext, is_link=True):
                 converted_link
